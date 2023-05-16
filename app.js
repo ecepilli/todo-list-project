@@ -6,6 +6,7 @@ const todoList=document.querySelector(".list-group");
 const firstCardBody=document.querySelectorAll(".card-body")[0];
 const secondCardBody=document.querySelectorAll(".card-body")[1];
 const clearButton=document.querySelector("#clearButton");
+const filterInput=document.querySelector("#todoSearch")
 let todos=[];
 
 runEvents();
@@ -15,6 +16,7 @@ function runEvents(){
     document.addEventListener("DOMContentLoaded",pageLoaded);
     secondCardBody.addEventListener("click",removeTodoToUI);
     clearButton.addEventListener("click",removeAll);
+    filterInput.addEventListener("keyup",filter);
 }
 
 function removeAll(){
@@ -41,6 +43,28 @@ function pageLoaded(){
         addToDoUI(todo);
     });
 }
+
+function filter(e){
+    const filterValue=e.target.value.toLowerCase().trim();
+    const todoList=document.querySelectorAll(".list-group-item");
+    if(todoList.length>0){
+        todoList.forEach(function(todo){
+            if(todo.textContent.toLowerCase().trim().includes(filterValue)){
+                //uyanları ekrandan göster
+                todo.setAttribute("style","display : block");
+            }
+            else{//uyanları ekrandan çıkar
+                todo.setAttribute("style","display:none !important");
+            }
+        })
+    }
+    else{
+        showAlert("warning","Please add todo to researching.")
+    }
+
+
+}
+
 function removeTodoToUI(e){
     if(e.target.className === "fa fa-remove"){
         //ekrandan silmek

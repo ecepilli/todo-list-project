@@ -6,6 +6,7 @@ const todoList=document.querySelector(".list-group");
 const firstCardBody=document.querySelectorAll(".list-group")[0];
 const secondCardBody=document.querySelectorAll(".list-group")[1];
 const clearButton=document.querySelector("#clearButton");
+let todos=[];
 
 runEvents();
 
@@ -20,7 +21,7 @@ function addTodo(e){
     }else{
         //Arayüze ekleme
         addToDoUI(inputText);
-
+        addToDoStorage(inputText);
     }
 
 //Storage ekleme
@@ -49,4 +50,19 @@ li.append(a);
 todoList.appendChild(li);
 
 addInput.value="";
+}
+
+function addToDoStorage(newToDo){
+   checkTodosFromStorage();
+   todos.push(newToDo);
+   localStorage.setItem("todos",JSON.stringify(todos));
+}
+
+function checkTodosFromStorage(){
+    if(localStorage.getItem("todos")===null){
+        todos=[];
+    }
+    else{
+        todos=JSON.parse(localStorage.getItem("todos"));
+    }
 }

@@ -12,8 +12,15 @@ runEvents();
 
 function runEvents(){
     form.addEventListener("submit",addTodo);
+    document.addEventListener("DOMContentLoaded",pageLoaded);
 }
 
+function pageLoaded(){
+    checkTodosFromStorage();
+    todos.forEach(function(todo){
+        addToDoUI(todo);
+    });
+}
 function addTodo(e){
     const inputText= addInput.value.trim();
     if(inputText==null || inputText==""){

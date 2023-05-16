@@ -24,11 +24,23 @@ function pageLoaded(){
 }
 function removeTodoToUI(e){
     if(e.target.className === "fa fa-remove"){
+        //ekrandan silmek
         const todo = e.target.parentElement.parentElement;
         todo.remove();
+        //storagedan silmek
+        removeToDoStorage(todo.textContent);
         showAlert("warning",todo.textContent+" removed.");
     }
 
+}
+function removeToDoStorage(removeTodo){
+checkTodosFromStorage();
+todos.forEach(function(todo,index){
+    if(removeTodo===todo){
+        todos.splice(index,1);//verilen değerden sonra kaç değer silinecek
+    }
+});
+localStorage.setItem("todos",JSON.stringify(todos));
 }
 function addTodo(e){
     const inputText= addInput.value.trim();

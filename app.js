@@ -14,6 +14,25 @@ function runEvents(){
     form.addEventListener("submit",addTodo);
     document.addEventListener("DOMContentLoaded",pageLoaded);
     secondCardBody.addEventListener("click",removeTodoToUI);
+    clearButton.addEventListener("click",removeAll);
+}
+
+function removeAll(){
+    const list =document.querySelectorAll(".list-group-item");
+    if(list.length>0){
+        //ekrandan silme
+        list.forEach(function(todo){
+            todo.remove();
+        });
+        //storagedan silme
+        todos=[];
+        localStorage.setItem("todos",JSON.stringify(todos));
+        showAlert("warning","Removed all todos.")
+    }
+    else{
+        showAlert("warning","Please write some todos to remove it.")
+    }
+    console.log(list);
 }
 
 function pageLoaded(){
